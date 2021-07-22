@@ -8,6 +8,9 @@ on:
       - main
   schedule:
     - cron: '40 * * * *'
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   # Test the image builds and works correctly.
