@@ -1,10 +1,11 @@
-name: Docker
+---
+name: Gihub Package
 
 on:
   push:
     # Publish `main` as Docker `latest` image.
-    branches:
-      - main
+    # branches:
+    #   - main
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -16,6 +17,9 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: docker-ubuntu2104-ansible
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   # Run tests.
