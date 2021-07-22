@@ -30,6 +30,21 @@ jobs:
       - name: Verify Ansible is accessible in the built image.
         run: docker exec --tty test-container env TERM=xterm ansible --version
 
+      - name: Collect docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v1
+        with:
+          dest: './logs'
+      - name: Tar test logs
+        if: failure()
+        run: tar cvzf ./test-logs.tgz ./logs
+      - name: Upload logs to GitHub
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: test-logs.tgz
+          path: ./test-logs.tgz
+
   # If on main branch, build and release image.
   release:
     name: Release
@@ -55,4 +70,20 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ github.repository }}:21.04, ${{ github.repository }}:latest
+          tags: ${{ github.repository }}:latest
+
+      - name: Collect docker build logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v1
+        with:
+          dest: './logs'
+      - name: Tar build logs
+        if: failure()
+        run: tar cvzf ./build-logs.tgz ./logs
+      - name: Upload logs to GitHub
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: build-logs.tgz
+          path: ./build-logs.tgz
+
