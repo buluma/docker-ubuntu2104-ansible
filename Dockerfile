@@ -33,12 +33,13 @@ RUN locale-gen en_US.UTF-8
 # Install Ansible via Pip. Avoid use of cache directory with pip.
 RUN pip3 install --no-cache-dir $pip_packages
 
+# hadolint ignore=DL3045
 COPY initctl_faker .
 RUN chmod +x initctl_faker && rm -fr /sbin/initctl && ln -s /initctl_faker /sbin/initctl
 
 # Install Ansible inventory file.
 RUN mkdir -p /etc/ansible
-# shellcheck disable=SC2028
+# hadolint ignore=ShellCheck-SC2028
 RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 # Remove unnecessary getty and udev targets that result in high CPU usage when using
