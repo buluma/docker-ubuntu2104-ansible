@@ -29,7 +29,7 @@ jobs:
 
       - name: Verify Ansible is accessible in the built image.
         run: docker exec --tty test-container env TERM=xterm ansible --version
-
+      # Collect Logs on failure
       - name: Collect docker logs on failure
         if: failure()
         uses: jwalton/gh-docker-logs@v1
