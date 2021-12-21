@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM buluma/ubuntu:21.04
 LABEL maintainer="Michael Buluma"
 
 ARG DEBIAN_FRONTEND=noninteractive
