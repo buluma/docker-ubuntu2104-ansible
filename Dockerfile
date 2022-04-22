@@ -18,7 +18,7 @@ RUN apt-get update \
        python3-setuptools \
        python3-pip \
        python3-yaml \
-       software-properties-common \
+       software-properties-common gnupg \
        rsyslog systemd systemd-cron sudo iproute2 \
     && apt-get clean \
     && rm -Rf /var/lib/apt/lists/* \
